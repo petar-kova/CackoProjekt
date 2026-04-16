@@ -1,0 +1,13 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Greška";
+}
+
+<main class="section container legal">
+    <h1>Došlo je do greške</h1>
+    <p>Pokušajte ponovno kasnije.</p>
+    @if (Model.ShowRequestId)
+    {
+        <p>Request ID: <code>@Model.RequestId</code></p>
+    }
+</main>

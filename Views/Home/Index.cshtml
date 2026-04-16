@@ -1,0 +1,184 @@
+@model HomePageViewModel
+@{
+    ViewData["Title"] = "Početna";
+}
+
+<header id="site-header">
+    <div class="container nav-wrap">
+        <a href="#home" class="logo">Cacko<span>Print</span></a>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Otvori navigaciju" aria-expanded="false">☰</button>
+
+        <nav id="main-nav">
+            <a href="#home">Početna</a>
+            <a href="#services">Proizvodi / Usluge</a>
+            <a href="#about">O nama</a>
+            <a href="#blog">Blog</a>
+            <a href="#contact">Kontakt</a>
+        </nav>
+
+        <a href="#contact" class="btn btn-primary desktop-cta">Zatraži ponudu</a>
+    </div>
+</header>
+
+<main>
+    <section id="home" class="hero">
+        <div class="overlay"></div>
+        <div class="container hero-content">
+            <h1>@Model.HeroTitle</h1>
+            <p>@Model.HeroSubtitle</p>
+            <div class="hero-actions">
+                <a href="#services" class="btn btn-primary">Pregled ponude</a>
+                <a href="#contact" class="btn btn-secondary">Kontakt</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="advantages">
+        <div class="container">
+            <h2 class="section-title">Zašto mi?</h2>
+            <div class="card-grid">
+                @foreach (var item in Model.Features)
+                {
+                    <article class="card reveal">
+                        <div class="icon">@item.Icon</div>
+                        <h3>@item.Title</h3>
+                        <p>@item.Description</p>
+                    </article>
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="section alt" id="services">
+        <div class="container">
+            <h2 class="section-title">Proizvodi / Usluge</h2>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Sve</button>
+                <button class="filter-btn" data-filter="wedding">Vjenčanja</button>
+                <button class="filter-btn" data-filter="business">Poslovno</button>
+                <button class="filter-btn" data-filter="gift">Pokloni</button>
+            </div>
+            <div class="product-grid">
+                @foreach (var service in Model.Services)
+                {
+                    <article class="product-card reveal" data-category="@service.Category">
+                        <img src="@service.ImageUrl" alt="@service.ImageAlt" loading="lazy" />
+                        <h3>@service.Name</h3>
+                        <p>@service.Description</p>
+                        <button class="btn btn-secondary open-lightbox" type="button">Saznaj više</button>
+                    </article>
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="container about-grid">
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80" alt="Tim u tiskari" class="about-image" loading="lazy" />
+            <div>
+                <h2>O nama</h2>
+                <p>Gradimo povjerenje kroz kvalitetu, rokove i dizajn koji ostavlja dojam.</p>
+                <div class="counters">
+                    <div><strong data-count="12">0</strong><span>godina iskustva</span></div>
+                    <div><strong data-count="850">0</strong><span>klijenata</span></div>
+                    <div><strong data-count="3200">0</strong><span>narudžbi</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section alt" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Recenzije</h2>
+            <div class="testimonial-slider">
+                @for (var i = 0; i < Model.Testimonials.Count; i++)
+                {
+                    var t = Model.Testimonials[i];
+                    <article class="testimonial @(i == 0 ? "active" : string.Empty)">
+                        <img src="@t.AvatarUrl" alt="@t.CustomerName" loading="lazy" />
+                        <h3>@t.CustomerName</h3>
+                        <p class="stars">@new string('★', t.Stars)</p>
+                        <p>"@t.Comment"</p>
+                    </article>
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Galerija</h2>
+            <div class="gallery-grid">
+                @foreach (var g in Model.GalleryItems)
+                {
+                    <img class="gallery-item reveal" src="@g.ImageUrl" alt="@g.ImageAlt" loading="lazy" />
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section">
+        <div class="container">
+            <h2>Spremni za svoju personaliziranu narudžbu?</h2>
+            <a href="#contact" class="btn btn-primary">Kontaktirajte nas</a>
+        </div>
+    </section>
+
+    <section class="section alt" id="blog">
+        <div class="container">
+            <h2 class="section-title">Blog</h2>
+            <div class="card-grid">
+                <article class="card"><h3>Kako odabrati papir?</h3><p>Vodič kroz materijale i završnu obradu.</p></article>
+                <article class="card"><h3>Trendovi dizajna</h3><p>Boje i tipografija za 2026.</p></article>
+                <article class="card"><h3>5 savjeta za brending</h3><p>Kako uskladiti online i print identitet.</p></article>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer id="contact">
+    <div class="container footer-grid">
+        <div>
+            <h3 class="logo">Cacko<span>Print</span></h3>
+            <p>Unikatni dizajn i vrhunska kvaliteta tiska.</p>
+            <p><strong>Radno vrijeme:</strong> Pon-Pet 08:00-16:00</p>
+        </div>
+        <div>
+            <h4>Brzi linkovi</h4>
+            <ul>
+                <li><a href="#home">Početna</a></li>
+                <li><a href="#services">Ponuda</a></li>
+                <li><a href="#about">O nama</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Kontakt</h4>
+            <p>Email: info@cackoprint.hr</p>
+            <p>Telefon: +385 91 123 4567</p>
+            <p>Zagreb, Hrvatska</p>
+        </div>
+        <div>
+            <h4>Newsletter</h4>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Vaš email" required />
+                <button class="btn btn-primary" type="submit">Prijava</button>
+            </form>
+            <iframe title="Mapa Zagreba" src="https://www.google.com/maps?q=Zagreb&output=embed" loading="lazy"></iframe>
+        </div>
+    </div>
+    <div class="copyright">
+        © 2026 Cacko Print Studio ·
+        <a asp-action="Privacy" asp-controller="Home">Privacy</a> |
+        <a asp-action="Terms" asp-controller="Home">Terms</a>
+    </div>
+</footer>
+
+<div id="cookie-banner" class="cookie-banner">
+    <p>Koristimo kolačiće za bolje iskustvo korištenja.</p>
+    <button id="accept-cookies" class="btn btn-primary" type="button">Prihvaćam</button>
+</div>
+
+<div id="lightbox" class="lightbox" aria-hidden="true">
+    <button id="close-lightbox" type="button" aria-label="Zatvori">✕</button>
+    <img id="lightbox-img" src="" alt="Uvećana slika" />
+</div>

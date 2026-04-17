@@ -1,0 +1,44 @@
+@model ProductListViewModel
+@{
+    ViewData["Title"] = "Svi proizvodi";
+}
+
+<h1>Katalog proizvoda</h1>
+
+<form method="get" class="filter-bar">
+    <label>
+        Sortiraj
+        <select name="sortBy">
+            <option value="priceAsc" selected="@(Model.SortBy == "priceAsc")">Cijena uzlazno</option>
+            <option value="priceDesc" selected="@(Model.SortBy == "priceDesc")">Cijena silazno</option>
+            <option value="name" selected="@(Model.SortBy == "name")">Naziv A-Z</option>
+        </select>
+    </label>
+
+    <label>
+        Vrsta proizvoda
+        <select name="productType">
+            <option value="">Sve</option>
+            @foreach (var type in Model.Types)
+            {
+                <option value="@type" selected="@(Model.SelectedType == type)">@type</option>
+            }
+        </select>
+    </label>
+
+    <button type="submit" class="btn btn-primary">Primijeni</button>
+</form>
+
+<div class="grid">
+    @foreach (var product in Model.Products)
+    {
+        <article class="card">
+            <img src="@product.ImageUrl" alt="@product.Name" />
+            <h3>@product.Name</h3>
+            <p>@product.Description</p>
+            <p><strong>Vrsta:</strong> @product.ProductType</p>
+            <p><strong>Dostupno:</strong> @product.StockQuantity kom</p>
+            <p class="price">@product.Price.ToString("0.00") €</p>
+        </article>
+    }
+</div>

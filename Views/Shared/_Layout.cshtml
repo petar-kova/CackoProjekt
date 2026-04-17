@@ -3,18 +3,40 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Personalizirane karte i tiskovine za posebne trenutke." />
-    <title>@ViewData["Title"] - Cacko Print Studio</title>
-    <link rel="icon" type="image/svg+xml" href="~/assets/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>@ViewData["Title"] - Akril Art Shop</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-    @RenderBody()
+<header class="main-header">
+    <div class="container nav">
+        <a class="brand" asp-controller="Home" asp-action="Index">Akril Art Shop</a>
+        <nav>
+            <a asp-controller="Home" asp-action="Index">Početna</a>
+            <a asp-controller="Products" asp-action="Index">Svi proizvodi</a>
+            <a href="/api/products" target="_blank">Web API</a>
+        </nav>
+        <div class="auth-area">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <span>@User.Identity.Name</span>
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn">Odjava</button>
+                </form>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login" class="btn">Login</a>
+                <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Registracija</a>
+            }
+        </div>
+    </div>
+</header>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+<main class="container">
+    @RenderBody()
+</main>
+
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
